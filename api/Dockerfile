@@ -8,7 +8,7 @@ COPY . .
 RUN go mod download
 # RUN install -v -mod=vendor ./cmd/...
 
-RUN go build -o main ./cmd
+RUN go build -o main ./
 
 # Run stage
 FROM debian:buster

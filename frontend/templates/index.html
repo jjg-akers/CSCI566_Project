@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our First Voting App</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <label for="goal">Candidate</label>
+        <input type="text" id="goal" v-model="enteredValue" />
+        <button v-on:click="addCandidate">Add Candidate</button>
+      </div>
+      <ul>
+        <li v-for="candidate in candidates">{{ candidate }}</li>
+      </ul>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="/static/scripts/app.js"></script>
+  </body>
+</html>
