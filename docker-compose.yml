@@ -3,10 +3,10 @@ services:
   app:
     build:
       context: "./api"
-    # env_file: .env
+      # env_file: .env
     restart: unless-stopped
     environment:
-      TEST_ENV: "this is a variable"
+      GATEWAY: ${GATEWAY}
     volumes:
       - ./api/:/app/
     # depends_on:

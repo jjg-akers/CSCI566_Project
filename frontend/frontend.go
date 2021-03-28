@@ -1,11 +1,10 @@
 package main
 
 import (
+	"CSCI566_Project/frontend/handlers"
 	"fmt"
 	"log"
 	"net/http"
-
-	"github.com/jjg-akers/csci556_project/frontend/handlers"
 )
 
 func main(){
