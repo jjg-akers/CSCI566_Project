@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-  app:
+  api:
     build:
       context: "./api"
       # env_file: .env
@@ -8,7 +8,24 @@ services:
     environment:
       GATEWAY: ${GATEWAY}
     volumes:
-      - ./api/:/app/
+      - ./api/:/api/
+    # depends_on:
+      # mysql:
+      #   condition: service_healthy
+      # minio:
+      #   condition: service_started
+    # links:
+      # - mysql
+      # - minio
+    ports:
+      - "8040:8040"
+  frontend:
+    build:
+      context: "./frontend"
+      # env_file: .env
+    restart: unless-stopped
+    volumes:
+      - ./frontend/:/frontend/
     # depends_on:
       # mysql:
       #   condition: service_healthy
@@ -19,27 +36,4 @@ services:
       # - minio
     ports:
       - "8080:8080"
-  # mysql:
-  #   image: "mariadb:10.3"
-  #   stop_signal: SIGKILL
-  #   environment:
-  #     MYSQL_USER: "user"
-  #     MYSQL_PASSWORD: "password"
-  #     MYSQL_RANDOM_ROOT_PASSWORD: 1
-  #   healthcheck:
-  #     test: mysql --user=user --password=password --execute="SELECT healthy FROM photoshare.healthcheck" --host=mysql --port=3306 --skip-column-names --silent | grep OK
-  #     interval: "1s"
-  #     retries: 60
-  #     timeout: "500ms"
-  #   restart: always
-  #   volumes:
-  #     - ./db/dbinit:/docker-entrypoint-initdb.d:ro
-  #   # ports:
-  #   #   - "3308:3306"
-  # minio:
-  #   image: minio/minio
-  #   command: "server /data"
-  #   volumes:
-  #     - ./var/minio:/data
-  #   ports:
-  #     - 9000:9000
+    
