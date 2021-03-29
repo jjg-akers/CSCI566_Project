@@ -76,8 +76,8 @@ func startServer(ctx context.Context, wg *sync.WaitGroup, interrupt chan os.Sign
 
 	// Start server -- listen at localhost, port 8080
 	go func() {
-		fmt.Println("starting server of 8080")
-		log.Fatal(http.ListenAndServe(":8080", nil))
+		fmt.Println("starting server of 8040")
+		log.Fatal(http.ListenAndServe(":8040", nil))
 	}()
 
 	<-interrupt
