@@ -3,19 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Our First Voting App</title>
+    <title>Voting Application</title>
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css" />
   </head>
   <body>
-    <div id="app">
+    <div id="app-1">
+      <h3>Register to Vote</h3>
       <div>
-        <label for="goal">Candidate</label>
-        <input type="text" id="goal" v-model="enteredValue" />
-        <button v-on:click="addCandidate">Add Candidate</button>
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" v-model="enteredValue" />
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" v-model="enteredValue" />
+        <label for="idnumber">ID Number (Drivers License)</label>
+        <input type="text" id="idnumber" v-model="enteredValue" />
+        <button v-on:click="registerVoter">Register Voter</button>
       </div>
-      <ul>
-        <li v-for="candidate in candidates">{{ candidate }}</li>
-      </ul>
+
+    </div>
+    <div id="app-2">
+      <h3>Select a Candidate</h3>
+      <div>
+        
+        <select v-model="selected">
+          <option v-for="option in options" v-bind:value="option.value">
+            {{ option.candidate }}
+          </option>
+        </select>
+      </br>
+        <!-- <span>Selected: {{ selected }}</span> -->
+    </br>
+        <label for="hashvalue">Verification Code</label>
+        <input type="text" id="hashvalue" v-model="enteredValue" />
+      </div>
+      <button v-on:click="submitVote">Submit Vote</button>
+    </div>
+    <div id="app-3">
+      <div>
+        <label for="verify">Verification Code</label>
+        <input type="text" id="verify" v-model="enteredValue" />
+        <button v-on:click="verify">Verify</button>
+      </div>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="/static/scripts/app.js"></script>
