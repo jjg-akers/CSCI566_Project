@@ -9,14 +9,14 @@
   <body>
     <div id="app-1">
       <h3>Register to Vote</h3>
-      <div>
+      <form @submit.prevent="registerVoter">
         <label for="fname">First Name</label>
-        <input type="text" id="fname" v-model="enteredValue" />
+        <input type="text" id="fname" v-model="fname" />
         <label for="lname">Last Name</label>
-        <input type="text" id="lname" v-model="enteredValue" />
+        <input type="text" id="lname" v-model="lname" />
         <label for="idnumber">ID Number (Drivers License)</label>
-        <input type="text" id="idnumber" v-model="enteredValue" />
-        <button v-on:click="registerVoter">Register Voter</button>
+        <input type="text" id="idnumber" v-model="idnumber" />
+        <button type="submit">Register Voter</button>
       </div>
 
     </div>
@@ -30,21 +30,23 @@
           </option>
         </select>
       </br>
-        <!-- <span>Selected: {{ selected }}</span> -->
+        <span>Selected: {{ selected }}</span>
     </br>
         <label for="hashvalue">Verification Code</label>
-        <input type="text" id="hashvalue" v-model="enteredValue" />
+        <input type="text" id="hashvalue" v-model="hashvalue" />
       </div>
       <button v-on:click="submitVote">Submit Vote</button>
     </div>
+
     <div id="app-3">
       <div>
-        <label for="verify">Verification Code</label>
-        <input type="text" id="verify" v-model="enteredValue" />
+        <label for="verificationcode">Verification Code</label>
+        <input type="text" id="verificationcode" v-model="verificationcode" />
         <button v-on:click="verify">Verify</button>
       </div>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="/static/scripts/app.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </body>
 </html>
