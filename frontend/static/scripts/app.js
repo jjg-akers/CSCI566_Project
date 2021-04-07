@@ -1,4 +1,5 @@
 // import Vue from 'vue'
+// import qs from 'qs'
 
 Vue.createApp({
   data() {
@@ -10,18 +11,44 @@ Vue.createApp({
   },
   methods: {
     registerVoter() {
-      const unique_hash = '';
+      const data =  {
+        first_name: this.fname,
+        last_name: this.lname,
+        idnumber: this.idnumber
+      }
+
+      // const params = new URLSearchParams();
+      // params.append( 'first_name', 'Cooper');
+      // params.append( 'last_name', 'this.lname');
+      // params.append( 'id', 'this.idnumber');
+
+      console.log(data);
+      // console.log(params);
+
       axios
-        .post('http://localhost:8040/registrar' )
-          .then(response => this.unique_hash = response.data)
-          .catch(error => {
-            this.errorMessage = error.message;
-            console.error("There was an error!", error);
-          });
-      
-          this.fname='';
-          this.lname='';
-          this.idnumber='';
+        .post('http://localhost:8040/registrar', data )
+        // { 
+        //   headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        //   params: data,
+        //   // data: qss.stringify(data) ,
+        //   // headers: {
+        //   //   'Accept': 'application/json',
+        //   //   'content-type': 'application/x-www-form-urlencoded',
+        //   // },
+              
+        // })
+
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(error => {
+          this.errorMessage = error.message;
+          console.error("There was an error!", error);
+        });
+
+        this.fname = '';
+        this.lname = '';
+        this.idnumber = '';
     }
   }
 }).mount("#app-1");
@@ -63,7 +90,19 @@ Vue.createApp({
   },
   methods: {
     async verify() {
-      const response = await axios.get("http://localhost:8040/voters/", this.verificationcode)
+      axios
+      .get('http://localhost:8040/registrar', {
+        params: {
+          verificationcode: this.verificationcode
+        }
+      })
+        .then(response => console.log(response))
+        .catch(error => {
+          this.errorMessage = error.message;
+          console.error("There was an error!", error);
+        });
+      // const response = await axios.get("http://localhost:8040/registrar", this.verificationcode)
+      this.verificationcode = '';
     }
 
   }

@@ -9,6 +9,9 @@
   <body>
     <div id="app-1">
       <h3>Register to Vote</h3>
+      <!-- <form @submit.preventDefault="registerVoter">
+
+      </form> -->
       <form @submit.prevent="registerVoter">
         <label for="fname">First Name</label>
         <input type="text" id="fname" v-model="fname" />
@@ -17,7 +20,7 @@
         <label for="idnumber">ID Number (Drivers License)</label>
         <input type="text" id="idnumber" v-model="idnumber" />
         <button type="submit">Register Voter</button>
-      </div>
+      </form>
 
     </div>
     <div id="app-2">
@@ -48,5 +51,6 @@
     <script src="https://unpkg.com/vue@next"></script>
     <script src="/static/scripts/app.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://raw.githubusercontent.com/kawanet/qs-lite/master/dist/qs-lite.min.js"></script> -->
   </body>
 </html>
