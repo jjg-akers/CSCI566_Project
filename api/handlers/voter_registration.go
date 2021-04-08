@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/jjg-akers/csci556_project/registrar"
+	"github.com/jjg-akers/csci556_project/util"
 )
 
 type VoterRegistrationHandler struct {
@@ -72,6 +73,19 @@ func (h *VoterRegistrationHandler) ServeHTTP(w http.ResponseWriter, r *http.Requ
 		}
 
 		log.Println("voter: ", string(v))
+
+		// hash values
+		str := voter.First_name + voter.Last_name + voter.Idnumber
+
+		hash := util.StringToKeccak256(str)
+
+		str = util.KeccakToString(hash[:])
+
+		fmt.Println("voter id string: ", str)
+
+		w.Header().Set("Content-Type", "application/json")
+		
+		fmt.Fprintf(w, `{"voter_id":%q}`, str)
 
 	case http.MethodPut:
 		// Update an existing record.
