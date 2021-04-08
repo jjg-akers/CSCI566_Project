@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gorilla/schema"
 	"github.com/jjg-akers/csci556_project/registrar"
 )
 
@@ -15,47 +14,60 @@ type VoterRegistrationHandler struct {
 }
 
 type Voter struct{
-	First_name string `schema:"first_name"`
-	Last_name string `schema:"last_name"`
-	Idnumber string `schema:"idnumber"`
+	First_name string `json:"first_name"`
+	Last_name string `json:"last_name"`
+	Idnumber string `json:"idnumber"`
 }
 
 func (h *VoterRegistrationHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
+	if origin := r.Header.Get("Origin"); origin != "" {
+        w.Header().Set("Access-Control-Allow-Origin", origin)
+        w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+        w.Header().Set("Access-Control-Allow-Headers",
+            "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+    }
+
+	    // Stop here if its Preflighted OPTIONS request
+		if r.Method == "OPTIONS" {
+			return
+		}
+
 	log.Println("voter regristrar hit")
-	// log.Println(r.URL)
-	// enableCors(&w)
+
 
 	switch r.Method {
 	case http.MethodGet:
 		log.Println(r.Method)
 		log.Println(r.URL.Query().Get("verificationcode"))
 	case http.MethodPost:
-		// log.Println(r.Method)
-		// log.Println(r.Body)
-		d := schema.NewDecoder()
-		log.Println("processing post")
 
-		err := r.ParseForm()
-		if err != nil{
-			log.Println("parse form failed")
-			w.WriteHeader(http.StatusBadRequest)
-			return
-	
-		}
+		// ----- Uncomment to read raw body
+		// body, err := ioutil.ReadAll(r.Body)
+		// if err != nil {
+        //     log.Printf("Error reading body: %v", err)
+        //     http.Error(w, "can't read body", http.StatusBadRequest)
+        //     return
+        // }
+		//		fmt.Println("body: ", string(body))
+		// --------------
+
+		
+		log.Println("processing post")
 	
 		voter := &Voter{}
 
-		if err = d.Decode(voter, r.PostForm); err != nil {
-			log.Println("err decoding post form: ", err)
-			w.WriteHeader(http.StatusBadRequest)
-			return
-		}
+		decoder := json.NewDecoder(r.Body)
 
+		err := decoder.Decode(&voter)
+		if err != nil {
+			log.Println("err decoding")
+			w.WriteHeader(http.StatusInternalServerError)		}
+	
 		v, err := json.MarshalIndent(voter, "", "  ")
 		if err != nil{
 			log.Println("err marshalling")
-			w.WriteHeader(http.StatusBadRequest)
+			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 
@@ -75,6 +87,7 @@ func (h *VoterRegistrationHandler) ServeHTTP(w http.ResponseWriter, r *http.Requ
 	// log.Println(r.Method)
 	// log.Println(r.URL)
 
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
 	fmt.Fprint(w, "ok")
 }
 

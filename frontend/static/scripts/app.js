@@ -25,19 +25,18 @@ Vue.createApp({
       console.log(data);
       // console.log(params);
 
-      axios
-        .post('http://localhost:8040/registrar', data )
-        // { 
-        //   headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        //   params: data,
-        //   // data: qss.stringify(data) ,
-        //   // headers: {
-        //   //   'Accept': 'application/json',
-        //   //   'content-type': 'application/x-www-form-urlencoded',
-        //   // },
-              
-        // })
+      // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
+      axios.post('http://localhost:8040/registrar',
+          // headers: { 'content-type': 'application/json' },
+          data,
+          // data: qss.stringify(sdata) ,
+          // headers: {
+          //   'Accept': 'application/json',
+          //   'content-type': 'application/x-www-form-urlencoded',
+          // },
+              
+        )
         .then(function (response) {
           console.log(response);
         })
