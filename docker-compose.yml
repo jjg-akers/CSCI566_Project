@@ -36,4 +36,13 @@ services:
       # - minio
     ports:
       - "8080:8080"
+  ganache:
+    image: trufflesuite/ganache-cli:latest
+    ports:
+      - "8545:8545"
+    # entrypoint:
+    #   - ganache-cli
+    #   - --port
+    #   - '8545'
+
     

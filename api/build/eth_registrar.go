@@ -23,12 +23,17 @@ func LoadEthRegistrarConfig(config *EthRegistrarConfig) []cli.Flag {
 			EnvVars:     []string{"GATEWAY"},
 			Destination: &config.Gateway,
 		},
+		// &cli.StringFlag{
+		// 	Name:        "testhost",
+		// 	EnvVars:     []string{"HOST"},
+		// 	Destination: &config.Gateway,
+		// },
 	}
 }
 
 func NewEthRegistrar(config *EthRegistrarConfig) (*registrar.EthRegistrar, error){
 	
-	fmt.Println("gate way from enf: ", config.Gateway)
+	fmt.Println("gate way from env: ", config.Gateway)
 	
 	client, err := ethclient.Dial(config.Gateway) //address of testnet
 	if err != nil {

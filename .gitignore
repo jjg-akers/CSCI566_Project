@@ -16,3 +16,6 @@
 
 #env stuff
 .env
+
+#keystore
+/api/keystore
