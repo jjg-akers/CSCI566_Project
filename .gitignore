@@ -18,4 +18,5 @@
 .env
 
 #keystore
+/api/keystore1
 /api/keystore
