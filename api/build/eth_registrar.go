@@ -22,12 +22,8 @@ func LoadEthRegistrarConfig(config *EthRegistrarConfig) []cli.Flag {
 			Name:        "gateway",
 			EnvVars:     []string{"GATEWAY"},
 			Destination: &config.Gateway,
+			Required: true,
 		},
-		// &cli.StringFlag{
-		// 	Name:        "testhost",
-		// 	EnvVars:     []string{"HOST"},
-		// 	Destination: &config.Gateway,
-		// },
 	}
 }
 

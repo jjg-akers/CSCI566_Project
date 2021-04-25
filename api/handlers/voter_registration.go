@@ -20,6 +20,29 @@ type Voter struct{
 	Idnumber string `json:"idnumber"`
 }
 
+// func LoadContract(session registrarcontract.RegistrarSession, client *ethclient.Client, contractAddr string) (*registrarcontract.RegistrarSession, error) {
+// 	log.Println("Loading contract\n")
+// 	//loadEnv()
+
+// 	// check for existing contract
+// 	// addr := common.HexToAddress(os.Getenv("CONTRACTADDR"))
+// 	addr := common.HexToAddress(contractAddr)
+
+
+// 	// create new contract instance
+// 	instance, err := registrarcontract.NewRegistrar(addr, client) //creates a new instance of Quiz, bound to a specific deployed contract
+// 	if err != nil {
+// 		// if addr doesn't exists we don't know where to locate our contract on the blockchain
+// 		// log.Fatalf("could not load contract: %v\n", err)
+// 		//log.Println(ErrTransactionWait)
+// 		return nil, fmt.Errorf("could not load contract: %w", err)
+// 	}
+
+// 	session.Contract = instance
+
+// 	return &session, nil
+// }
+
 func (h *VoterRegistrationHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	if origin := r.Header.Get("Origin"); origin != "" {

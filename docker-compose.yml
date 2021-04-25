@@ -7,9 +7,13 @@ services:
     restart: unless-stopped
     environment:
       GATEWAY: ${GATEWAY}
+      KEYSTORE_PASS: ${KEYSTORE_PASS}
+      KEYSTORE: ${KEYSTORE}
+      CONTRACTADDR: ${CONTRACTADDR}
     volumes:
       - ./api/:/api/
-    # depends_on:
+    depends_on:
+      - "ganache"
       # mysql:
       #   condition: service_healthy
       # minio:
@@ -40,9 +44,10 @@ services:
     image: trufflesuite/ganache-cli:latest
     ports:
       - "8545:8545"
+    command: --account="0x4ce94e65d6195a91c634d34240496a5908fb3baf5123d31b561f1dcec74fa485,100000000000000000000"
     # entrypoint:
+      # - --account="0x4ce94e65d6195a91c634d34240496a5908fb3baf5123d31b561f1dcec74fa485,100000000000000000000"
     #   - ganache-cli
     #   - --port
     #   - '8545'
-
     
